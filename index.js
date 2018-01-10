@@ -202,9 +202,12 @@ MochaJUnitReporter.prototype.getTestcaseData = function(test, err) {
     } else {
       message = '';
     }
-    var failureMessage = err.stack || message;
+    var failureMessage = message || err.stack;
     var failureElement = {
-      _cdata: this.removeInvalidCharacters(failureMessage)
+      _attr: {
+        message: this.removeInvalidCharacters(failureMessage)
+      },
+      _cdata: this.removeInvalidCharacters(err.stack)
     };
 
     config.testcase.push({failure: failureElement});
